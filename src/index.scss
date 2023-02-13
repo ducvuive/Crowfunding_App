@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  body {
+    @apply font-primary text-base font-normal mx-auto;
+    // de cho chu mong hon : text-smooth
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    max-width: 1440px;
+  }
+  input {
+    @apply outline-none;
+  }
+  // dung de xoa error trong input
+  input:focus + .error-input {
+    display: none;
+  }
+}

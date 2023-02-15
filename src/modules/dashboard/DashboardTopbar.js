@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/button";
 import DashboardFund from "./DashboardFund";
 import DashboardSearch from "./DashboardSearch";
@@ -6,8 +7,10 @@ import DashboardSearch from "./DashboardSearch";
 const DashboardTopbar = () => {
   return (
     <div className="flex items-center justify-between mb-8">
-      <div className="flex items-center gap-x-10">
-        <img srcSet="/logo.png 2x" alt="crowfunding-app" />
+      <div className="flex items-center flex-1 gap-x-10">
+        <Link to="/" className="inline-block">
+          <img srcSet="/logo.png 2x" alt="crowfunding-app" />
+        </Link>
         <div className=" max-w-[458px] w-full flex-none">
           <DashboardSearch></DashboardSearch>
         </div>

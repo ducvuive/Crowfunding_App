@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Heading from "../components/common/Heading";
 import LayoutDashboard from "../layouts/LayoutDashboard";
 import CampaignGrid from "../modules/campaign/CampaignGrid";
@@ -8,7 +8,7 @@ import CampaignFeature from "../modules/campaign/CampaignFeature";
 import Gap from "../components/common/Gap";
 const DashboardPage = () => {
   return (
-    <LayoutDashboard>
+    <Fragment>
       <Heading number={4}>Your campaign</Heading>
       <CampaignFeature></CampaignFeature>
       <Gap></Gap>
@@ -29,7 +29,7 @@ const DashboardPage = () => {
             <CampaignItem key={v4()}></CampaignItem>
           ))}
       </CampaignGrid>
-    </LayoutDashboard>
+    </Fragment>
   );
 };
 

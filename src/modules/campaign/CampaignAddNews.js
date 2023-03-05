@@ -12,6 +12,7 @@ import { Button } from "../../components/button";
 import axios from "axios";
 import useOnChange from "../../hooks/useOnChange";
 import { toast } from "react-toastify";
+import DatePicker from "react-date-picker";
 Quill.register("modules/imageUploader", ImageUploader);
 
 const CampaignAddNews = () => {
@@ -198,19 +199,29 @@ const CampaignAddNews = () => {
         <FormRow>
           <FormGroup>
             <Label>Start Date</Label>
-            <Input
+            <DatePicker
+              onChange={setStartDate}
+              value={startDate}
+              format="dd-MM-yyyy"
+            />
+            {/* <Input
               control={control}
               name="start_date"
               placeholder="Start Date"
-            ></Input>
+            ></Input> */}
           </FormGroup>
           <FormGroup>
             <Label>End Date</Label>
-            <Input
+            {/* <Input
               control={control}
               name="end_date"
               placeholder="End Date"
-            ></Input>
+            ></Input> */}
+            <DatePicker
+              onChange={setEndDate}
+              value={endDate}
+              format="dd-MM-yyyy"
+            />
           </FormGroup>
         </FormRow>
         <div className="mt-10 text-center">

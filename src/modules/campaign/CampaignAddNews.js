@@ -13,12 +13,39 @@ import axios from "axios";
 import useOnChange from "../../hooks/useOnChange";
 import { toast } from "react-toastify";
 import DatePicker from "react-date-picker";
+import { apiURL } from "../../config/config";
 Quill.register("modules/imageUploader", ImageUploader);
 
 const CampaignAddNews = () => {
-  const { handleSubmit, control, setValue } = useForm();
+  const { handleSubmit, control, setValue, reset, watch } = useForm();
   const [content, setContent] = React.useState("");
-  const handleAddNewCampaign = (values) => {};
+  const resetValues = () => {
+    setStartDate("");
+    setEndDate("");
+    reset({});
+  };
+  const getDropdownLabel = (name, defaultValue = "") => {
+    console.log("getDropdownLabel ~ defaultValue:", defaultValue);
+    console.log("getDropdownLabel ~ name:", name);
+    const value = watch(name) || defaultValue;
+    console.log("getDropdownLabel ~ value:", value);
+    return value;
+  };
+  const handleAddNewCampaign = async (values) => {
+    try {
+      await axios.post(`${apiURL}/campaigns`, {
+        ...values,
+        content,
+        startDate,
+        endDate,
+      });
+      toast.success("Create campaign successfully");
+      resetValues();
+    } catch (error) {
+      toast.error("Can not create new campaign");
+    }
+    // values, startDate, endDate, content
+  };
   const modules = useMemo(
     () => ({
       toolbar: [
@@ -90,7 +117,9 @@ const CampaignAddNews = () => {
             <Label>Select a category *</Label>
             {/* Dropdown */}
             <Dropdown>
-              <Dropdown.Select placeholder="Select the category"></Dropdown.Select>
+              <Dropdown.Select
+                placeholder={getDropdownLabel("category", "Select category")}
+              ></Dropdown.Select>
               <Dropdown.List>
                 <Dropdown.Option
                   onClick={() =>
@@ -172,7 +201,9 @@ const CampaignAddNews = () => {
           <FormGroup>
             <Label>Country</Label>
             <Dropdown>
-              <Dropdown.Select placeholder="Select country"></Dropdown.Select>
+              <Dropdown.Select
+                placeholder={getDropdownLabel("country", "Select country")}
+              ></Dropdown.Select>
               <Dropdown.List>
                 <Dropdown.Search
                   placeholder="Search country"
@@ -225,7 +256,7 @@ const CampaignAddNews = () => {
           </FormGroup>
         </FormRow>
         <div className="mt-10 text-center">
-          <Button className="px-10 mx-auto text-white bg-primary">
+          <Button className="px-10 mx-auto text-white bg-primary" type="submit">
             Submit new campaign{" "}
           </Button>
         </div>

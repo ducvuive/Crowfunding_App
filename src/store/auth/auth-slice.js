@@ -16,12 +16,28 @@ const authSlice = createSlice({
       ...action.payload,
     }),
     // để cập nhật thông tin user vào store
-    authUpdateUser: (state, action) => ({
+    authUpdateUser: (state, action) => {
+      console.log("authUpdateUser ~ action", action);
+      return {
+        ...state,
+        user: action.payload.user,
+        accessToken: action.payload.accessToken,
+      };
+    },
+    authFetchMe: (state, action) => ({
       ...state,
-      user: action.payload.user,
-      accessToken: action.payload.accessToken,
+      // user: action.payload.user,
+      // accessToken: action.payload.accessToken,
+      ...action.payload,
     }),
+    authRefreshToken: (state, action) => ({}),
   },
 });
-export const { authLogin, authRegister, authUpdateUser } = authSlice.actions;
+export const {
+  authLogin,
+  authRegister,
+  authUpdateUser,
+  authFetchMe,
+  authRefreshToken,
+} = authSlice.actions;
 export default authSlice.reducer;

@@ -1,8 +1,9 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import CampaignView from "./modules/campaign/CampaignView";
 import Modal from "react-modal";
 import LayoutPayment from "./layouts/LayoutPayment";
+import { useDispatch, useSelector } from "react-redux";
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
@@ -18,6 +19,15 @@ const customStyles = {
 Modal.setAppElement("#root");
 Modal.defaultStyles = {};
 function App() {
+  const { user } = useSelector((state) => state.auth);
+  console.log("App ~ user:", user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user && user.id) {
+      //
+    } else {
+    }
+  }, [user]);
   return (
     <div>
       <Suspense>
@@ -47,8 +57,8 @@ function App() {
               element={<ShippingPage></ShippingPage>}
             ></Route>
           </Route>
-          <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
-          <Route path="/sign-in" element={<SignInPage></SignInPage>}></Route>
+          <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
+          <Route path="/login" element={<SignInPage></SignInPage>}></Route>
         </Routes>
       </Suspense>
     </div>

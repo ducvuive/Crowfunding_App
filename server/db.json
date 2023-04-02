@@ -1,5 +1,74 @@
 {
   "users": [],
   "categories": [],
-  "campaigns": []
+  "campaigns": [
+    {
+      "campaignTitel": "Hello world",
+      "short_description": "Hello 123",
+      "goal": "100",
+      "amount": "200",
+      "prefilled": "1",
+      "video": "",
+      "category": "architecture",
+      "country": "Vietnam",
+      "content": "",
+      "startDate": "2023-03-14T03:35:12.979Z",
+      "endDate": "2023-03-14T03:35:12.979Z",
+      "id": 1
+    },
+    {
+      "campaignTitel": "test image",
+      "short_description": "test image",
+      "goal": "12",
+      "amount": "21",
+      "prefilled": "",
+      "video": "",
+      "category": "architecture",
+      "content": "",
+      "startDate": "2023-03-14T08:33:32.884Z",
+      "endDate": "2023-03-14T08:33:32.884Z",
+      "id": 2
+    },
+    {
+      "campaignTitel": "Hello world 123",
+      "short_description": "test image",
+      "goal": "",
+      "amount": "",
+      "prefilled": "",
+      "video": "",
+      "category": "architecture",
+      "content": "",
+      "startDate": "2023-03-14T08:36:32.261Z",
+      "endDate": "2023-03-14T08:36:32.261Z",
+      "id": 3
+    },
+    {
+      "campaignTitel": "Hello world Test Image",
+      "short_description": "Hello world Test Image",
+      "goal": "100",
+      "amount": "200",
+      "prefilled": "1",
+      "video": "https://www.youtube.com/watch?v=fW3tgGTS5Dc",
+      "category": "architecture",
+      "country": "Vietnam",
+      "content": "<p>Hello world Test Image</p>",
+      "startDate": "2023-03-14T14:14:29.632Z",
+      "endDate": "2023-03-14T14:14:29.632Z",
+      "id": 4
+    },
+    {
+      "campaignTitel": "Hello world 1234",
+      "short_description": "Hello world 1234",
+      "goal": "100",
+      "amount": "200",
+      "prefilled": "1",
+      "video": "",
+      "category": "architecture",
+      "country": "Vietnam",
+      "content": "",
+      "startDate": "2023-03-14T14:18:20.642Z",
+      "endDate": "2023-03-16T17:00:00.000Z",
+      "id": 5
+    }
+  ]
 }

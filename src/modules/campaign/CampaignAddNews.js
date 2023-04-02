@@ -13,7 +13,8 @@ import axios from "axios";
 import useOnChange from "../../hooks/useOnChange";
 import { toast } from "react-toastify";
 import DatePicker from "react-date-picker";
-import { apiURL } from "../../config/config";
+import { apiURL, imgbbAPI } from "../../config/config";
+import ImageUpload from "../../components/image/ImageUpload";
 Quill.register("modules/imageUploader", ImageUploader);
 
 const CampaignAddNews = () => {
@@ -25,13 +26,23 @@ const CampaignAddNews = () => {
     reset({});
   };
   const getDropdownLabel = (name, defaultValue = "") => {
-    console.log("getDropdownLabel ~ defaultValue:", defaultValue);
-    console.log("getDropdownLabel ~ name:", name);
     const value = watch(name) || defaultValue;
-    console.log("getDropdownLabel ~ value:", value);
     return value;
   };
   const handleAddNewCampaign = async (values) => {
+    console.log("handleAddNewCampaign ~ values:", values);
+    // try {
+    //   const response = await axios.post(`${apiURL}/campaigns`, {
+    //     ...values,
+    //     content,
+    //     startDate,
+    //     endDate,
+    //   });
+    //   toast.success("Create campaign successfully");
+    //   resetValues();
+    // } catch (error) {
+    //   toast.error("Can not create new campaign");
+    // }
     try {
       await axios.post(`${apiURL}/campaigns`, {
         ...values,
@@ -59,17 +70,17 @@ const CampaignAddNews = () => {
       imageUploader: {
         // imgbbAPI
         upload: async (file) => {
-          // const bodyFormData = new FormData();
-          // bodyFormData.append("image", file);
-          // const response = await axios({
-          //   method: "post",
-          //   url: imgbbAPI,
-          //   data: bodyFormData,
-          //   headers: {
-          //     "Content-Type": "multipart/form-data",
-          //   },
-          // });
-          // return response.data.data.url;
+          const bodyFormData = new FormData();
+          bodyFormData.append("image", file);
+          const response = await axios({
+            method: "post",
+            url: imgbbAPI,
+            data: bodyFormData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          return response.data.data.url;
         },
       },
     }),
@@ -151,6 +162,16 @@ const CampaignAddNews = () => {
             onChange={setContent}
           />
         </FormGroup>
+        <FormRow>
+          <FormGroup>
+            <Label>Featured Image</Label>
+            <ImageUpload
+              onChange={() => setValue}
+              name="feautered_image"
+            ></ImageUpload>
+          </FormGroup>
+          <FormGroup></FormGroup>
+        </FormRow>
         <FormRow>
           <FormGroup>
             <Label>Goal *</Label>

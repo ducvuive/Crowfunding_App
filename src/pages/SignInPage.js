@@ -10,6 +10,8 @@ import LayoutAuthentication from "../layouts/LayoutAuthentication";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import useToggleValue from "../hooks/useToggleValue";
+import { useDispatch } from "react-redux";
+import { authLogin } from "../store/auth/auth-slice";
 const schema = yup.object({
   email: yup.string().email("Invalid email").required("This field is required"),
   password: yup
@@ -28,14 +30,15 @@ const SignInPage = () => {
   });
   const { value: showPassword, handleToggleValue: handleTogglePassword } =
     useToggleValue();
+  const dispatch = useDispatch();
   const handleSignIn = (values) => {
-    console.log(values);
+    dispatch(authLogin(values));
   };
   return (
     <LayoutAuthentication heading="Welcome Back!">
       <p className="mb-6 text-xs font-normal text-center lg:text-sm text-text3 lg:mb-8">
         Dont have an account?{" "}
-        <Link to="/sign-up" className="font-medium underline text-primary">
+        <Link to="/register" className="font-medium underline text-primary">
           Sign up
         </Link>
       </p>

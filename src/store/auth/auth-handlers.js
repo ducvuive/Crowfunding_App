@@ -3,6 +3,7 @@ import { saveToken } from "../../utils/auth";
 import {
   requestAuthFetchMe,
   requestAuthLogin,
+  requestAuthRefreshToken,
   requestAuthRegister,
 } from "./auth-request";
 import { toast } from "react-toastify";
@@ -28,6 +29,7 @@ function* handleAuthLogin(action) {
     console.log("function*handleAuthLogin ~ response", response);
     // accessToken, refreshToken
     if (response.data.accessToken && response.data.refreshToken) {
+      saveToken(response.data.accessToken, response.data.refreshToken);
       yield call(handleAuthFetchMe, { payload: response.data.accessToken });
     }
   } catch (error) {
@@ -39,6 +41,7 @@ function* handleAuthLogin(action) {
   }
 }
 function* handleAuthFetchMe({ payload }) {
+  console.log("function*handleAuthFetchMe ~ payload:", payload);
   try {
     const response = yield call(requestAuthFetchMe, payload);
     if (response.status === 200) {
@@ -52,5 +55,20 @@ function* handleAuthFetchMe({ payload }) {
     // response.data -> userInfo
   } catch (error) {}
 }
+function* handleAuthRefreshToken({ payload }) {
+  console.log("function*handleAuthRefreshToken ~ payload:", payload);
+  try {
+    const response = yield call(requestAuthRefreshToken, payload);
+    console.log("function*handleAuthRefreshToken ~ response:", response);
+    if (response.data) {
+      saveToken(response.data.accessToken, response.data.refreshToken);
+      yield call(handleAuthFetchMe, {
+        payload: response.data.accessToken,
+      });
+    } else {
+      // Logout
+    }
+  } catch (error) {}
+}
 
-export { handleAuthLogin, handleAuthFetchMe };
+export { handleAuthLogin, handleAuthFetchMe, handleAuthRefreshToken };

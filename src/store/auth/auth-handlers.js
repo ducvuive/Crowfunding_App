@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { saveToken } from "../../utils/auth";
+import { logOut, saveToken } from "../../utils/auth";
 import {
   requestAuthFetchMe,
   requestAuthLogin,
@@ -41,7 +41,7 @@ function* handleAuthLogin(action) {
   }
 }
 function* handleAuthFetchMe({ payload }) {
-  console.log("function*handleAuthFetchMe ~ payload:", payload);
+  //console.log("function*handleAuthFetchMe ~ payload:", payload);
   try {
     const response = yield call(requestAuthFetchMe, payload);
     if (response.status === 200) {
@@ -70,5 +70,19 @@ function* handleAuthRefreshToken({ payload }) {
     }
   } catch (error) {}
 }
+function* handleLogout() {
+  yield put(
+    authUpdateUser({
+      user: undefined,
+      accessToken: null,
+    })
+  );
+  logOut();
+}
 
-export { handleAuthLogin, handleAuthFetchMe, handleAuthRefreshToken };
+export {
+  handleAuthLogin,
+  handleAuthFetchMe,
+  handleAuthRefreshToken,
+  handleLogout,
+};

@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import LayoutPayment from "./layouts/LayoutPayment";
 import { useDispatch, useSelector } from "react-redux";
 import { authRefreshToken, authUpdateUser } from "./store/auth/auth-slice";
-import { getToken } from "./utils/auth";
+import { getToken, logOut } from "./utils/auth";
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
@@ -36,9 +36,12 @@ function App() {
     } else {
       const { refresh_token } = getToken();
       if (refresh_token) {
+        // cap accesstoken moi
         dispatch(authRefreshToken(refresh_token));
       } else {
+        // ve initialState
         dispatch(authUpdateUser({}));
+        logOut();
       }
     }
   }, [user]);

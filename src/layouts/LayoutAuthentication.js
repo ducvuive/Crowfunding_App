@@ -1,12 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 // proptypes dung để
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
 import ErrorComponent from "../components/common/ErrorComponent";
+import { useSelector } from "react-redux";
 
 const LayoutAuthentication = (props) => {
   const { children, heading } = props;
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user && user.email) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+  // nếu user tồn tại và user.email tồn tại thì return null
+  // dung de no khong bi giat khi hien thi trang sign in vi no chay vao if truoc khi vao useEffect
+  if (user && user.email) return null;
   return (
     <div className="relative w-full min-h-screen p-10 bg-lite dark:bg-darkbg isolate">
       <img

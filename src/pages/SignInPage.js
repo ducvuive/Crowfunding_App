@@ -34,13 +34,6 @@ const SignInPage = () => {
   const handleSignIn = (values) => {
     dispatch(authLogin(values));
   };
-  const { user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (user && user.id) {
-      navigate("/");
-    }
-  }, [user]);
   return (
     <LayoutAuthentication heading="Welcome Back!">
       <p className="mb-6 text-xs font-normal text-center lg:text-sm text-text3 lg:mb-8">
